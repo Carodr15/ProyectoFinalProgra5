@@ -41,10 +41,15 @@ namespace ProyectoFinalProgra5.Pages
             }
         }
 
-        protected void GridViewProvincias_SelectedIndexChanged(object sender, EventArgs e)
+        protected void  GridViewMisReservaciones_SelectedIndexChanged(object sender, EventArgs e)
         {
             int idReservacion = Convert.ToInt32(GridViewMisReservaciones.SelectedDataKey.Value);
-            //Response.Redirect("~/Pages/EditarProvincia.aspx?id="+idProvincia+"");
+            Response.Redirect("~/Pages/EditarReservacion.aspx?id="+idReservacion+"");
+        }
+
+        protected void lbtnConsultar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Pages/Detalle.aspx");
         }
     }
 

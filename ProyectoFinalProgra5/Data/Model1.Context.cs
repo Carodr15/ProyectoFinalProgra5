@@ -27,10 +27,99 @@ namespace ProyectoFinalProgra5.Data
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Bitacora> Bitacora { get; set; }
+        public virtual DbSet<Habitacion> Habitacion { get; set; }
+        public virtual DbSet<Hotel> Hotel { get; set; }
+        public virtual DbSet<Persona> Persona { get; set; }
+        public virtual DbSet<Reservacion> Reservacion { get; set; }
     
         public virtual ObjectResult<sp_ConsultarReservaidPersona_Result> sp_ConsultarReservaidPersona()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarReservaidPersona_Result>("sp_ConsultarReservaidPersona");
+        }
+    
+        public virtual ObjectResult<sp_ConsultarListaHabitaciones_Result> sp_ConsultarListaHabitaciones()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ConsultarListaHabitaciones_Result>("sp_ConsultarListaHabitaciones");
+        }
+    
+        public virtual int sp_CrearReservacion(Nullable<System.DateTime> fechaEntrada, Nullable<System.DateTime> fechaSalida, Nullable<int> numeroAdultos, Nullable<int> numeroNinhos, Nullable<int> totalDiasReservacion, Nullable<decimal> costoPorCadaAdulto, Nullable<decimal> costoPorCadaNinho, Nullable<decimal> costoTotal, Nullable<System.DateTime> fechaCreacion, Nullable<System.DateTime> fechaModificacion, string estado)
+        {
+            var fechaEntradaParameter = fechaEntrada.HasValue ?
+                new ObjectParameter("fechaEntrada", fechaEntrada) :
+                new ObjectParameter("fechaEntrada", typeof(System.DateTime));
+    
+            var fechaSalidaParameter = fechaSalida.HasValue ?
+                new ObjectParameter("fechaSalida", fechaSalida) :
+                new ObjectParameter("fechaSalida", typeof(System.DateTime));
+    
+            var numeroAdultosParameter = numeroAdultos.HasValue ?
+                new ObjectParameter("numeroAdultos", numeroAdultos) :
+                new ObjectParameter("numeroAdultos", typeof(int));
+    
+            var numeroNinhosParameter = numeroNinhos.HasValue ?
+                new ObjectParameter("numeroNinhos", numeroNinhos) :
+                new ObjectParameter("numeroNinhos", typeof(int));
+    
+            var totalDiasReservacionParameter = totalDiasReservacion.HasValue ?
+                new ObjectParameter("totalDiasReservacion", totalDiasReservacion) :
+                new ObjectParameter("totalDiasReservacion", typeof(int));
+    
+            var costoPorCadaAdultoParameter = costoPorCadaAdulto.HasValue ?
+                new ObjectParameter("costoPorCadaAdulto", costoPorCadaAdulto) :
+                new ObjectParameter("costoPorCadaAdulto", typeof(decimal));
+    
+            var costoPorCadaNinhoParameter = costoPorCadaNinho.HasValue ?
+                new ObjectParameter("costoPorCadaNinho", costoPorCadaNinho) :
+                new ObjectParameter("costoPorCadaNinho", typeof(decimal));
+    
+            var costoTotalParameter = costoTotal.HasValue ?
+                new ObjectParameter("costoTotal", costoTotal) :
+                new ObjectParameter("costoTotal", typeof(decimal));
+    
+            var fechaCreacionParameter = fechaCreacion.HasValue ?
+                new ObjectParameter("fechaCreacion", fechaCreacion) :
+                new ObjectParameter("fechaCreacion", typeof(System.DateTime));
+    
+            var fechaModificacionParameter = fechaModificacion.HasValue ?
+                new ObjectParameter("fechaModificacion", fechaModificacion) :
+                new ObjectParameter("fechaModificacion", typeof(System.DateTime));
+    
+            var estadoParameter = estado != null ?
+                new ObjectParameter("estado", estado) :
+                new ObjectParameter("estado", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearReservacion", fechaEntradaParameter, fechaSalidaParameter, numeroAdultosParameter, numeroNinhosParameter, totalDiasReservacionParameter, costoPorCadaAdultoParameter, costoPorCadaNinhoParameter, costoTotalParameter, fechaCreacionParameter, fechaModificacionParameter, estadoParameter);
+        }
+    
+        public virtual ObjectResult<sp_ListaHabitaciones_Result> sp_ListaHabitaciones()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ListaHabitaciones_Result>("sp_ListaHabitaciones");
+        }
+    
+        public virtual int sp_CrearHabitacion(Nullable<int> idHotel, string numeroHabitacion, Nullable<int> capacidadMaxima, string descripcion, string estado)
+        {
+            var idHotelParameter = idHotel.HasValue ?
+                new ObjectParameter("idHotel", idHotel) :
+                new ObjectParameter("idHotel", typeof(int));
+    
+            var numeroHabitacionParameter = numeroHabitacion != null ?
+                new ObjectParameter("numeroHabitacion", numeroHabitacion) :
+                new ObjectParameter("numeroHabitacion", typeof(string));
+    
+            var capacidadMaximaParameter = capacidadMaxima.HasValue ?
+                new ObjectParameter("capacidadMaxima", capacidadMaxima) :
+                new ObjectParameter("capacidadMaxima", typeof(int));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("descripcion", descripcion) :
+                new ObjectParameter("descripcion", typeof(string));
+    
+            var estadoParameter = estado != null ?
+                new ObjectParameter("estado", estado) :
+                new ObjectParameter("estado", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CrearHabitacion", idHotelParameter, numeroHabitacionParameter, capacidadMaximaParameter, descripcionParameter, estadoParameter);
         }
     }
 }

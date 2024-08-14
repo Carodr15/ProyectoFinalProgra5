@@ -10,10 +10,10 @@
 
 
      <div>
-       <asp:HyperLink ID="hlCrearReservacion" NavigateUrl="~/Pages/CrearReservacion.aspx"  runat="server">Crear Reservacion</asp:HyperLink>
+       <asp:HyperLink ID="hlCrearReservacion" NavigateUrl="~/Pages/CrearReservacion.aspx"  runat="server">Nueva Reservacion</asp:HyperLink>
      </div>
 
-    <asp:GridView ID="GridViewMisReservaciones" runat="server"  >
+    <asp:GridView ID="GridViewMisReservaciones" runat="server" >
 
 
 
@@ -24,11 +24,19 @@
        <asp:BoundField DataField="fechaSalida" HeaderText="Fecha de Salida" DataFormatString="{0:yyyy-MM-dd}"/>
        <asp:BoundField DataField="costoTotal" HeaderText="Costo" />
        <asp:BoundField DataField="estado" HeaderText="Estado" />
-           </Columns>
+          
 
 
+                    
+      <asp:TemplateField HeaderText="Acciones">
+                 <ItemTemplate>
+                    <asp:LinkButton ID="lbtnConsultar" runat="server" Text="Consultar"   CommandArgument='<%# Eval("idReservacion")  %>' CommandName="Consultar" onclick="lbtnConsultar_Click"  ></asp:LinkButton>
+         
+                </ItemTemplate>
+          </asp:TemplateField>
 
 
+        </Columns>
 
     </asp:GridView>
 
